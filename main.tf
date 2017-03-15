@@ -9,6 +9,7 @@ module "consul" {
     key_name = "Hum_do"
     key_path = "Hum_do.pem"
     region = "us-west-2"
+    subnet = "${aws_subnet.vault-a.id}"
 }
 
 module "vault" {
@@ -17,7 +18,7 @@ module "vault" {
     ami = "ami-3389b803"
     availability-zones = "us-west-2a,us-west-2b"
     key-name = "Hum_do"
-    subnets = "${aws_subnet.vault-a.id},${aws_subnet.vault-b.id}"
+    subnets = "${aws_subnet.vault-a.id}"
     vpc-id = "${aws_vpc.vault.id}"
 }
 
@@ -40,14 +41,3 @@ resource "aws_subnet" "vault-a" {
         Name = "vault-subnet-a"
     }
 }
-
-resource "aws_subnet" "vault-b" {
-    vpc_id = "${aws_vpc.vault.id}"
-    cidr_block = "172.20.250.0/24"
-    availability_zone = "us-west-2b"
-
-    tags {
-        Name = "vault-subnet-b"
-    }
-}
-

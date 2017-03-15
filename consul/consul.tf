@@ -1,24 +1,25 @@
 resource "aws_instance" "server" {
-    ami = "${lookup(var.ami, "${var.region}-${var.platform}")}"
+    ami = "${var.ami}"
     instance_type = "${var.instance_type}"
     key_name = "${var.key_name}"
     count = "${var.servers}"
     security_groups = ["${aws_security_group.consul.name}"]
+    subnet_id = "${var.subnet}"
 
     connection {
-        user = "${lookup(var.user, var.platform)}"
+        user = "${var.user}"
         private_key = "${file("${var.key_path}")}"
     }
 
     #Instance tags
     tags {
-        Name = "${var.tagName}-${count.index}"
+        Name = "consul-${count.index}"
         ConsulRole = "Server"
     }
 
     provisioner "file" {
-        source = "${path.module}/../shared/scripts/${lookup(var.service_conf, var.platform)}"
-        destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
+        source = "${path.module}/../shared/scripts/${var.service_conf}"
+        destination = "/tmp/${var.service_conf_dest}"
     }
 
 
