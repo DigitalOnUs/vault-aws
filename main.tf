@@ -5,14 +5,14 @@ provider "aws" {
 }
 
 module "consul" {
-    source = "github.com/hashicorp/consul/terraform/aws"
+    source = "./consul"
     key_name = "Hum_do"
     key_path = "Hum_do.pem"
     region = "us-west-2"
 }
 
 module "vault" {
-    source = "github.com/hashicorp/vault/terraform/aws"
+    source = "./vault"
     config = ""
     ami = "ami-3389b803"
     availability-zones = "us-west-2a,us-west-2b"
