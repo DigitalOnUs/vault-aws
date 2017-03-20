@@ -14,7 +14,7 @@ variable "key-name" {
 }
 
 variable "key-path" {
-    default = "./Hum_do.pem"
+    default = "Hum_do.pem"
 }
 
 variable "user" {
@@ -37,11 +37,11 @@ variable "zones" {
 }
 
 variable "instance-vault" {
-    default = "m3.medium"
+    default = "t2.micro"
 }
 
 variable "nodes-vault" {
-    default = "2"
+    default = "3"
 }
 
 //-------------------------------------------------------------------

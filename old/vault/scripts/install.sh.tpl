@@ -17,7 +17,16 @@ sudo chown root:root /usr/local/bin/vault
 
 # Setup the configuration
 cat <<EOF >/tmp/vault-config
-${config}
+
+listener "tcp" {
+  address     = "0.0.0.0:8200"
+  tls_disable = 1
+}
+backend "consul" {
+  path           = "vault/"
+  address        = "127.0.0.1:8500"
+}
+
 EOF
 sudo mv /tmp/vault-config /usr/local/etc/vault-config.json
 

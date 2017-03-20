@@ -9,17 +9,20 @@ module "consul" {
     key_name = "Hum_do"
     key_path = "Hum_do.pem"
     region = "us-west-2"
+    vpc = "${aws_vpc.vault.id}"
     subnet = "${aws_subnet.vault-a.id}"
+    servers = "1"
 }
 
 module "vault" {
     source = "./vault"
     config = ""
     ami = "ami-3389b803"
-    availability-zones = "us-west-2a,us-west-2b"
+    availability-zones = "us-west-2a"
     key-name = "Hum_do"
     subnets = "${aws_subnet.vault-a.id}"
     vpc-id = "${aws_vpc.vault.id}"
+    nodes = "1"
 }
 
 resource "aws_vpc" "vault" {

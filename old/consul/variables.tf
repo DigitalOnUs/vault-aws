@@ -24,9 +24,9 @@ variable "service_conf_dest" {
 // AWS settings
 //-------------------------------------------------------------------
 
-variable "region" {                                                                                                           
-  default     = "us-west-2"                                                                                                   
-  description = "The region of AWS, for AMI lookups."                                                                         
+variable "region" {
+  default     = "us-west-2"
+  description = "The region of AWS, for AMI lookups."    
 }
 
 variable "ami" {
@@ -34,19 +34,19 @@ variable "ami" {
   default = "ami-9abea4fb"
 }
 
-variable "instance_type" {                                                                                                    
-  default     = "t2.micro"                                                                                                    
-  description = "AWS Instance type, if you change, make sure it is compatible with AMI, not all AMIs allow all instance types."
+variable "instance_type" {                                                                                                default     = "t2.micro"                                                                                                description = "AWS Instance type, if you change, make sure it is compatible with AMI, not all AMIs allow all instance types."
 }  
 
-variable "servers" {                                                                                                          
-  default     = "3"                                                                                                           
-  description = "The number of Consul servers to launch."                                                                     
+variable "servers" {                                                                                                      default     = "3"                                                                                                       description = "The number of Consul servers to launch."                                                               
 }  
 
 variable "subnet" {
   default     = ""
   description = "The current subnet"
+}
+
+variable "vpc" {
+  default     = ""
 }
 
 variable "key_name" {
