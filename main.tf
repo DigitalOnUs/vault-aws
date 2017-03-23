@@ -187,10 +187,22 @@ resource "aws_instance" "server_vault" {
     inline = ["${module.shared.install_consul_client}"]
   }
 
-  provisioner "remote-exec" {                                                                         
-    inline = [                                                                                        
-      "${module.shared.install_vault_server}",                                                        
-      "echo 'export VAULT_ADDR=http://localhost:8200' >> /home/${module.shared.base_user}/.bashrc",   
-    ]                                                                                                 
-  } 
+  provisioner "remote-exec" {
+    inline = [
+      "${module.shared.install_vault_server}",
+      "echo 'export VAULT_ADDR=http://localhost:8200' >> /home/${module.shared.base_user}/.bashrc"
+    ]
+  }
+}
+
+resource "null_resource" "vault" {
+  connection {
+    user        = "${module.shared.base_user}"
+    host        = "${aws_instance.server_vault.public_ip}"
+    private_key = "${file("${var.ssh_key_name}.pem")}"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["${data.template_file.init_vault.rendered}"]
+  }
 }
