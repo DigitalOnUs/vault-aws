@@ -53,6 +53,7 @@ vault write auth/github/map/teams/default value=default
 # AWS
 vault mount aws
 vault write aws/config/root access_key=${access_key} secret_key=${secret_key} region=${region}
+vault write aws/config/lease lease="1m" lease_max="2m"
 
 # Transit
 vault mount transit
