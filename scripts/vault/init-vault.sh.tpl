@@ -54,6 +54,10 @@ vault write auth/github/map/teams/default value=default
 vault mount aws
 vault write aws/config/root access_key=${access_key} secret_key=${secret_key} region=${region}
 
+# Transit
+vault mount transit
+vault write -f transit/keys/DevSecOps
+
 ############
 ## POLICY ##
 ############
