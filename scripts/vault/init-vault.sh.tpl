@@ -42,6 +42,9 @@ cat /tmp/vault.init
 ##########
 
 # Github
+vault auth-enable github
+vault write auth/github/config organization=DigitalOnUs
+vault write auth/github/map/teams/default value=default
 
 ############
 ## SECRET ##
