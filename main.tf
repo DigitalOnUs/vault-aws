@@ -71,22 +71,22 @@ resource "aws_security_group" "default_egress" {
   depends_on = ["aws_route_table_association.main"]
 
   egress {
-    protocol     = "-1"
-    from_port    = 0
-    to_port      = 0
-    cidr_blocks  = ["0.0.0.0/0"]
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
 resource "aws_security_group" "admin" {
-  name        = "${var.env_name}-admin"
-  vpc_id      = "${aws_vpc.main.id}"
+  name   = "${var.env_name}-admin"
+  vpc_id = "${aws_vpc.main.id}"
 
   ingress {
-    protocol     = "tcp"
-    from_port    = 22
-    to_port      = 22
-    cidr_blocks  = ["0.0.0.0/0"]
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   //ingress {
@@ -105,21 +105,21 @@ resource "aws_security_group" "admin" {
 }
 
 resource "aws_security_group" "internal" {
-  name        = "${var.env_name}-internal"
-  vpc_id      = "${aws_vpc.main.id}"
+  name   = "${var.env_name}-internal"
+  vpc_id = "${aws_vpc.main.id}"
 
   ingress {
-    protocol   = "tcp"
-    from_port  = 1
-    to_port    = 65535
-    self       = true
+    protocol  = "tcp"
+    from_port = 1
+    to_port   = 65535
+    self      = true
   }
 
   ingress {
-    protocol   = "udp"
-    from_port  = 1
-    to_port    = 65535
-    self       = true
+    protocol  = "udp"
+    from_port = 1
+    to_port   = 65535
+    self      = true
   }
 }
 
@@ -140,7 +140,7 @@ resource "aws_instance" "server_consul" {
   ]
 
   tags {
-    Name = "${var.env_name}-consul-${count.index}"
+    Name                     = "${var.env_name}-consul-${count.index}"
     consul_server_datacenter = "${var.region}"
   }
 
@@ -190,7 +190,7 @@ resource "aws_instance" "server_vault" {
   provisioner "remote-exec" {
     inline = [
       "${module.shared.install_vault_server}",
-      "echo 'export VAULT_ADDR=http://localhost:8200' >> /home/${module.shared.base_user}/.bashrc"
+      "echo 'export VAULT_ADDR=http://localhost:8200' >> /home/${module.shared.base_user}/.bashrc",
     ]
   }
 }
