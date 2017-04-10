@@ -25,7 +25,7 @@ __Useful commands__
 ## Specs
 * Consul 0.7.5
 * Vault 0.7.0
-* t2.micro x2
+* t2.micro x2 [Ubuntu 14.04]
 
 ## TODO
 * Apply best practices
